@@ -12,3 +12,35 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model Product {
+  id        Int      @id @default(autoincrement())
+  name      String
+  value     Decimal  @db.Decimal(10, 2)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  rawMaterials ProductRawMaterial[]
+}
+
+model RawMaterial {
+  id        Int      @id @default(autoincrement())
+  name      String
+  stock     Decimal  @db.Decimal(10, 3)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  products ProductRawMaterial[]
+}
+
+model ProductRawMaterial {
+  id            Int     @id @default(autoincrement())
+  productId     Int
+  rawMaterialId Int
+  quantity      Decimal @db.Decimal(10, 3)
+
+  product     Product     @relation(fields: [productId], references: [id])
+  rawMaterial RawMaterial @relation(fields: [rawMaterialId], references: [id])
+
+  @@unique([productId, rawMaterialId])
+}
