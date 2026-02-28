@@ -123,7 +123,7 @@ A **API de Controle de Estoque** é o backend de um sistema industrial para gere
 
 ```bash
 # Clone o repositório
-git clone https://github.com/seu-usuario/estoque-api.git
+git clone https://github.com/lucasbars/estoque-api.git
 cd estoque-api
 
 # Instale as dependências
